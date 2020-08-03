@@ -5,8 +5,37 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfPizzeria"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="LogIn"
+        Height="300"
+        Width="400">
     <Grid>
-        
+        <Label Content="Username:"
+               HorizontalAlignment="Left"
+               Margin="45,39,0,0"
+               VerticalAlignment="Top" />
+        <TextBox HorizontalAlignment="Left"
+                 Height="23"
+                 Margin="45,65,0,0"
+                 TextWrapping="Wrap"
+                 Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}"
+                 VerticalAlignment="Top"
+                 Width="245" />
+        <Label Content="Password:"
+               HorizontalAlignment="Left"
+               Margin="45,93,0,0"
+               VerticalAlignment="Top" />
+        <TextBox HorizontalAlignment="Left"
+                 Height="23"
+                 Margin="45,119,0,0"
+                 TextWrapping="Wrap"
+                 Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
+                 VerticalAlignment="Top"
+                 Width="245" />
+        <Button Content="LogIn"
+                Command="{Binding LogIn, UpdateSourceTrigger=PropertyChanged}"
+                HorizontalAlignment="Left"
+                Margin="45,195,0,0"
+                VerticalAlignment="Top"
+                Width="75" />
     </Grid>
 </Window>
