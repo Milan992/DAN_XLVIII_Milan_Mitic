@@ -128,6 +128,40 @@ namespace WpfPizzeria.ViewModels
         {
             return true;
         }
+
+        private ICommand deleteOrder;
+
+        public ICommand DeleteOrder
+        {
+            get
+            {
+                if (deleteOrder == null)
+                {
+                    deleteOrder = new RelayCommand(param => DeleteOrderExecute(), param => CanDeleteOrderExecute());
+                }
+
+                return deleteOrder;
+            }
+        }
+
+        private void DeleteOrderExecute()
+        {
+            try
+            {
+                service.DeleteOrder(Order);
+                OrderList = service.GetAllOrders();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private bool CanDeleteOrderExecute()
+        {
+          return true;
+        }
+
         #endregion
     }
 }
