@@ -1,0 +1,306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PizzeriaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblMenu">
+          <Key>
+            <PropertyRef Name="MealID" />
+          </Key>
+          <Property Name="MealID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MealName" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Price" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblOrder">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="JMBG" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="DateAndTime" Type="datetime" Nullable="false" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+          <Property Name="Price" Type="int" />
+        </EntityType>
+        <EntityType Name="tblRecord">
+          <Key>
+            <PropertyRef Name="RecordID" />
+          </Key>
+          <Property Name="RecordID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MealID" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+          <Property Name="OrderID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblStatus">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StatusName" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Pizzeria.dbo.vwOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwOrder">
+          <Key>
+            <PropertyRef Name="RecordID" />
+            <PropertyRef Name="MealName" />
+            <PropertyRef Name="Amount" />
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="RecordID" Type="int" Nullable="false" />
+          <Property Name="MealName" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+          <Property Name="OrderID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__tblOrder__Status__33008CF0">
+          <End Role="tblStatus" Type="Self.tblStatus" Multiplicity="1" />
+          <End Role="tblOrder" Type="Self.tblOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblStatus">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="tblOrder">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblRecord__MealI__36D11DD4">
+          <End Role="tblMenu" Type="Self.tblMenu" Multiplicity="1" />
+          <End Role="tblRecord" Type="Self.tblRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMenu">
+              <PropertyRef Name="MealID" />
+            </Principal>
+            <Dependent Role="tblRecord">
+              <PropertyRef Name="MealID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblRecord__Order__37C5420D">
+          <End Role="tblOrder" Type="Self.tblOrder" Multiplicity="1" />
+          <End Role="tblRecord" Type="Self.tblRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblOrder">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="tblRecord">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PizzeriaModelStoreContainer">
+          <EntitySet Name="tblMenu" EntityType="Self.tblMenu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblOrder" EntityType="Self.tblOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblRecord" EntityType="Self.tblRecord" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblStatus" EntityType="Self.tblStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vwOrder" EntityType="Self.vwOrder" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwOrder].[RecordID] AS [RecordID], 
+    [vwOrder].[MealName] AS [MealName], 
+    [vwOrder].[Amount] AS [Amount], 
+    [vwOrder].[OrderID] AS [OrderID]
+    FROM [dbo].[vwOrder] AS [vwOrder]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__tblOrder__Status__33008CF0" Association="Self.FK__tblOrder__Status__33008CF0">
+            <End Role="tblStatus" EntitySet="tblStatus" />
+            <End Role="tblOrder" EntitySet="tblOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblRecord__MealI__36D11DD4" Association="Self.FK__tblRecord__MealI__36D11DD4">
+            <End Role="tblMenu" EntitySet="tblMenu" />
+            <End Role="tblRecord" EntitySet="tblRecord" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblRecord__Order__37C5420D" Association="Self.FK__tblRecord__Order__37C5420D">
+            <End Role="tblOrder" EntitySet="tblOrder" />
+            <End Role="tblRecord" EntitySet="tblRecord" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PizzeriaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblMenu">
+          <Key>
+            <PropertyRef Name="MealID" />
+          </Key>
+          <Property Name="MealID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MealName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Price" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblRecords" Relationship="Self.FK__tblRecord__MealI__62E4AA3C" FromRole="tblMenu" ToRole="tblRecord" />
+        </EntityType>
+        <EntityType Name="tblOrder">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JMBG" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DateAndTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Int32" />
+          <NavigationProperty Name="tblStatu" Relationship="Self.FK__tblOrder__Status__5F141958" FromRole="tblOrder" ToRole="tblStatus" />
+          <NavigationProperty Name="tblRecords" Relationship="Self.FK__tblRecord__Order__63D8CE75" FromRole="tblOrder" ToRole="tblRecord" />
+        </EntityType>
+        <EntityType Name="tblRecord">
+          <Key>
+            <PropertyRef Name="RecordID" />
+          </Key>
+          <Property Name="RecordID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MealID" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="tblMenu" Relationship="Self.FK__tblRecord__MealI__62E4AA3C" FromRole="tblRecord" ToRole="tblMenu" />
+          <NavigationProperty Name="tblOrder" Relationship="Self.FK__tblRecord__Order__63D8CE75" FromRole="tblRecord" ToRole="tblOrder" />
+        </EntityType>
+        <EntityType Name="tblStatu">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tblOrders" Relationship="Self.FK__tblOrder__Status__5F141958" FromRole="tblStatus" ToRole="tblOrder" />
+        </EntityType>
+        <Association Name="FK__tblRecord__MealI__62E4AA3C">
+          <End Role="tblMenu" Type="Self.tblMenu" Multiplicity="1" />
+          <End Role="tblRecord" Type="Self.tblRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblMenu">
+              <PropertyRef Name="MealID" />
+            </Principal>
+            <Dependent Role="tblRecord">
+              <PropertyRef Name="MealID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblOrder__Status__5F141958">
+          <End Role="tblStatus" Type="Self.tblStatu" Multiplicity="1" />
+          <End Role="tblOrder" Type="Self.tblOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblStatus">
+              <PropertyRef Name="StatusID" />
+            </Principal>
+            <Dependent Role="tblOrder">
+              <PropertyRef Name="StatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__tblRecord__Order__63D8CE75">
+          <End Role="tblOrder" Type="Self.tblOrder" Multiplicity="1" />
+          <End Role="tblRecord" Type="Self.tblRecord" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblOrder">
+              <PropertyRef Name="OrderID" />
+            </Principal>
+            <Dependent Role="tblRecord">
+              <PropertyRef Name="OrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PizzeriaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblMenus" EntityType="Self.tblMenu" />
+          <EntitySet Name="tblOrders" EntityType="Self.tblOrder" />
+          <EntitySet Name="tblRecords" EntityType="Self.tblRecord" />
+          <EntitySet Name="tblStatus" EntityType="Self.tblStatu" />
+          <AssociationSet Name="FK__tblRecord__MealI__62E4AA3C" Association="Self.FK__tblRecord__MealI__62E4AA3C">
+            <End Role="tblMenu" EntitySet="tblMenus" />
+            <End Role="tblRecord" EntitySet="tblRecords" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblOrder__Status__5F141958" Association="Self.FK__tblOrder__Status__5F141958">
+            <End Role="tblStatus" EntitySet="tblStatus" />
+            <End Role="tblOrder" EntitySet="tblOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__tblRecord__Order__63D8CE75" Association="Self.FK__tblRecord__Order__63D8CE75">
+            <End Role="tblOrder" EntitySet="tblOrders" />
+            <End Role="tblRecord" EntitySet="tblRecords" />
+          </AssociationSet>
+          <EntitySet Name="vwOrders" EntityType="PizzeriaModel.vwOrder" />
+        </EntityContainer>
+        <EntityType Name="vwOrder">
+          <Key>
+            <PropertyRef Name="RecordID" />
+            <PropertyRef Name="MealName" />
+            <PropertyRef Name="Amount" />
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="RecordID" Type="Int32" Nullable="false" />
+          <Property Name="MealName" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PizzeriaModelStoreContainer" CdmEntityContainer="PizzeriaEntities">
+          <EntitySetMapping Name="tblMenus">
+            <EntityTypeMapping TypeName="PizzeriaModel.tblMenu">
+              <MappingFragment StoreEntitySet="tblMenu">
+                <ScalarProperty Name="MealID" ColumnName="MealID" />
+                <ScalarProperty Name="MealName" ColumnName="MealName" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblOrders">
+            <EntityTypeMapping TypeName="PizzeriaModel.tblOrder">
+              <MappingFragment StoreEntitySet="tblOrder">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="JMBG" ColumnName="JMBG" />
+                <ScalarProperty Name="DateAndTime" ColumnName="DateAndTime" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblRecords">
+            <EntityTypeMapping TypeName="PizzeriaModel.tblRecord">
+              <MappingFragment StoreEntitySet="tblRecord">
+                <ScalarProperty Name="RecordID" ColumnName="RecordID" />
+                <ScalarProperty Name="MealID" ColumnName="MealID" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblStatus">
+            <EntityTypeMapping TypeName="PizzeriaModel.tblStatu">
+              <MappingFragment StoreEntitySet="tblStatus">
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwOrders">
+            <EntityTypeMapping TypeName="PizzeriaModel.vwOrder">
+              <MappingFragment StoreEntitySet="vwOrder">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="MealName" ColumnName="MealName" />
+                <ScalarProperty Name="RecordID" ColumnName="RecordID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
