@@ -16,14 +16,14 @@ using WpfPizzeria.ViewModels;
 namespace WpfPizzeria.Views
 {
     /// <summary>
-    /// Interaction logic for Employee.xaml
+    /// Interaction logic for Order.xaml
     /// </summary>
-    public partial class Employee : Window
+    public partial class Order : Window
     {
-        public Employee()
+        public Order()
         {
             InitializeComponent();
-            this.DataContext = new EmployeeViewModel(this);
+            this.DataContext = new OrderViewModel(this);
         }
     }
 }

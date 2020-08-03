@@ -5,8 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfPizzeria.Views"
         mc:Ignorable="d"
-        Title="Employee" Height="450" Width="800">
+        Title="Employee"
+        Height="450"
+        Width="800">
     <Grid>
-        
+        <DataGrid HorizontalAlignment="Left"
+                  IsReadOnly="True"
+                  Height="160"
+                  Margin="10,10,0,0"
+                  VerticalAlignment="Top"
+                  Width="auto"
+                  AutoGenerateColumns="False"
+                  ItemsSource="{Binding OrderList, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Order, UpdateSourceTrigger=PropertyChanged}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID"
+                                    Binding="{Binding OrderID}" />
+                <DataGridTextColumn Header="JMBG"
+                                    Binding="{Binding JMBG}" />
+                <DataGridTextColumn Header="Status"
+                                    Binding="{Binding StatusID}" />
+                <DataGridTextColumn Header="Time"
+                                    Binding="{Binding DateAndTime}" />
+                <DataGridTextColumn Header="Price"
+                                    Binding="{Binding Price}" />
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="View order"
+                Command="{Binding ViewOrder, UpdateSourceTrigger=PropertyChanged}"
+                HorizontalAlignment="Left"
+                Margin="445,13,0,0"
+                VerticalAlignment="Top"
+                Width="75"
+                RenderTransformOrigin="0.32,2.25" />
     </Grid>
 </Window>

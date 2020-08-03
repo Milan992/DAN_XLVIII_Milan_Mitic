@@ -12,6 +12,8 @@
         <AssociationConnector Association="PizzeriaModel.FK__tblRecord__MealI__62E4AA3C" ManuallyRouted="false" />
         <AssociationConnector Association="PizzeriaModel.FK__tblOrder__Status__5F141958" ManuallyRouted="false" />
         <AssociationConnector Association="PizzeriaModel.FK__tblRecord__Order__63D8CE75" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="PizzeriaModel.vwRecord" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="PizzeriaModel.vwOrder" Width="1.5" PointX="0.75" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

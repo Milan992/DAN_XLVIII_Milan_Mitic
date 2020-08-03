@@ -29,5 +29,7 @@ namespace WpfPizzeria.Model
         public virtual DbSet<tblOrder> tblOrders { get; set; }
         public virtual DbSet<tblRecord> tblRecords { get; set; }
         public virtual DbSet<tblStatu> tblStatus { get; set; }
+        public virtual DbSet<vwRecord> vwRecords { get; set; }
+        public virtual DbSet<vwOrder> vwOrders { get; set; }
     }
 }

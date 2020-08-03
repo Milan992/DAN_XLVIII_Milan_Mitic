@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="PizzeriaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="PizzeriaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tblMenu">
           <Key>
             <PropertyRef Name="MealID" />
@@ -38,6 +38,34 @@
           </Key>
           <Property Name="StatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StatusName" Type="varchar" MaxLength="10" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Pizzeria.dbo.vwOrder' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwOrder">
+          <Key>
+            <PropertyRef Name="RecordID" />
+            <PropertyRef Name="MealName" />
+            <PropertyRef Name="Amount" />
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="RecordID" Type="int" Nullable="false" />
+          <Property Name="MealName" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+          <Property Name="OrderID" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Pizzeria.dbo.vwRecord' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vwRecord">
+          <Key>
+            <PropertyRef Name="RecordID" />
+            <PropertyRef Name="MealName" />
+            <PropertyRef Name="Amount" />
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="RecordID" Type="int" Nullable="false" />
+          <Property Name="MealName" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Amount" Type="int" Nullable="false" />
+          <Property Name="OrderID" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK__tblOrder__Status__5F141958">
           <End Role="tblStatus" Type="Self.tblStatus" Multiplicity="1" />
@@ -80,6 +108,22 @@
           <EntitySet Name="tblOrder" EntityType="Self.tblOrder" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblRecord" EntityType="Self.tblRecord" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblStatus" EntityType="Self.tblStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="vwOrder" EntityType="Self.vwOrder" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwOrder].[RecordID] AS [RecordID], 
+    [vwOrder].[MealName] AS [MealName], 
+    [vwOrder].[Amount] AS [Amount], 
+    [vwOrder].[OrderID] AS [OrderID]
+    FROM [dbo].[vwOrder] AS [vwOrder]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vwRecord" EntityType="Self.vwRecord" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vwRecord].[RecordID] AS [RecordID], 
+    [vwRecord].[MealName] AS [MealName], 
+    [vwRecord].[Amount] AS [Amount], 
+    [vwRecord].[OrderID] AS [OrderID]
+    FROM [dbo].[vwRecord] AS [vwRecord]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK__tblOrder__Status__5F141958" Association="Self.FK__tblOrder__Status__5F141958">
             <End Role="tblStatus" EntitySet="tblStatus" />
             <End Role="tblOrder" EntitySet="tblOrder" />
@@ -93,8 +137,7 @@
             <End Role="tblRecord" EntitySet="tblRecord" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="PizzeriaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -191,7 +234,33 @@
             <End Role="tblOrder" EntitySet="tblOrders" />
             <End Role="tblRecord" EntitySet="tblRecords" />
           </AssociationSet>
+          <EntitySet Name="vwRecords" EntityType="PizzeriaModel.vwRecord" />
+          <EntitySet Name="vwOrders" EntityType="PizzeriaModel.vwOrder" />
         </EntityContainer>
+        <EntityType Name="vwRecord">
+          <Key>
+            <PropertyRef Name="RecordID" />
+            <PropertyRef Name="MealName" />
+            <PropertyRef Name="Amount" />
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="RecordID" Type="Int32" Nullable="false" />
+          <Property Name="MealName" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="vwOrder">
+          <Key>
+            <PropertyRef Name="RecordID" />
+            <PropertyRef Name="MealName" />
+            <PropertyRef Name="Amount" />
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="RecordID" Type="Int32" Nullable="false" />
+          <Property Name="MealName" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -233,6 +302,26 @@
               <MappingFragment StoreEntitySet="tblStatus">
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
                 <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwRecords">
+            <EntityTypeMapping TypeName="PizzeriaModel.vwRecord">
+              <MappingFragment StoreEntitySet="vwRecord">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="MealName" ColumnName="MealName" />
+                <ScalarProperty Name="RecordID" ColumnName="RecordID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vwOrders">
+            <EntityTypeMapping TypeName="PizzeriaModel.vwOrder">
+              <MappingFragment StoreEntitySet="vwOrder">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="MealName" ColumnName="MealName" />
+                <ScalarProperty Name="RecordID" ColumnName="RecordID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

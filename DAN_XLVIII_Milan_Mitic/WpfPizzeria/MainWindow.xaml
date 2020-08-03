@@ -30,6 +30,7 @@
                  TextWrapping="Wrap"
                  Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}"
                  VerticalAlignment="Top"
+                 FontFamily="pack://application:,,,/Resources/#password"
                  Width="245" />
         <Button Content="LogIn"
                 Command="{Binding LogIn, UpdateSourceTrigger=PropertyChanged}"
