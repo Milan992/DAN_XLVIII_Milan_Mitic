@@ -53,21 +53,7 @@ warning 6002: The table/view 'Pizzeria.dbo.vwOrder' does not have a primary key 
           <Property Name="Amount" Type="int" Nullable="false" />
           <Property Name="OrderID" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'Pizzeria.dbo.vwRecord' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="vwRecord">
-          <Key>
-            <PropertyRef Name="RecordID" />
-            <PropertyRef Name="MealName" />
-            <PropertyRef Name="Amount" />
-            <PropertyRef Name="OrderID" />
-          </Key>
-          <Property Name="RecordID" Type="int" Nullable="false" />
-          <Property Name="MealName" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="Amount" Type="int" Nullable="false" />
-          <Property Name="OrderID" Type="int" Nullable="false" />
-        </EntityType>
-        <Association Name="FK__tblOrder__Status__5F141958">
+        <Association Name="FK__tblOrder__Status__33008CF0">
           <End Role="tblStatus" Type="Self.tblStatus" Multiplicity="1" />
           <End Role="tblOrder" Type="Self.tblOrder" Multiplicity="*" />
           <ReferentialConstraint>
@@ -79,7 +65,7 @@ warning 6002: The table/view 'Pizzeria.dbo.vwRecord' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblRecord__MealI__62E4AA3C">
+        <Association Name="FK__tblRecord__MealI__36D11DD4">
           <End Role="tblMenu" Type="Self.tblMenu" Multiplicity="1" />
           <End Role="tblRecord" Type="Self.tblRecord" Multiplicity="*" />
           <ReferentialConstraint>
@@ -91,7 +77,7 @@ warning 6002: The table/view 'Pizzeria.dbo.vwRecord' does not have a primary key
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__tblRecord__Order__63D8CE75">
+        <Association Name="FK__tblRecord__Order__37C5420D">
           <End Role="tblOrder" Type="Self.tblOrder" Multiplicity="1" />
           <End Role="tblRecord" Type="Self.tblRecord" Multiplicity="*" />
           <ReferentialConstraint>
@@ -116,23 +102,15 @@ warning 6002: The table/view 'Pizzeria.dbo.vwRecord' does not have a primary key
     [vwOrder].[OrderID] AS [OrderID]
     FROM [dbo].[vwOrder] AS [vwOrder]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="vwRecord" EntityType="Self.vwRecord" store:Type="Views" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [vwRecord].[RecordID] AS [RecordID], 
-    [vwRecord].[MealName] AS [MealName], 
-    [vwRecord].[Amount] AS [Amount], 
-    [vwRecord].[OrderID] AS [OrderID]
-    FROM [dbo].[vwRecord] AS [vwRecord]</DefiningQuery>
-          </EntitySet>
-          <AssociationSet Name="FK__tblOrder__Status__5F141958" Association="Self.FK__tblOrder__Status__5F141958">
+          <AssociationSet Name="FK__tblOrder__Status__33008CF0" Association="Self.FK__tblOrder__Status__33008CF0">
             <End Role="tblStatus" EntitySet="tblStatus" />
             <End Role="tblOrder" EntitySet="tblOrder" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblRecord__MealI__62E4AA3C" Association="Self.FK__tblRecord__MealI__62E4AA3C">
+          <AssociationSet Name="FK__tblRecord__MealI__36D11DD4" Association="Self.FK__tblRecord__MealI__36D11DD4">
             <End Role="tblMenu" EntitySet="tblMenu" />
             <End Role="tblRecord" EntitySet="tblRecord" />
           </AssociationSet>
-          <AssociationSet Name="FK__tblRecord__Order__63D8CE75" Association="Self.FK__tblRecord__Order__63D8CE75">
+          <AssociationSet Name="FK__tblRecord__Order__37C5420D" Association="Self.FK__tblRecord__Order__37C5420D">
             <End Role="tblOrder" EntitySet="tblOrder" />
             <End Role="tblRecord" EntitySet="tblRecord" />
           </AssociationSet>
@@ -234,21 +212,8 @@ warning 6002: The table/view 'Pizzeria.dbo.vwRecord' does not have a primary key
             <End Role="tblOrder" EntitySet="tblOrders" />
             <End Role="tblRecord" EntitySet="tblRecords" />
           </AssociationSet>
-          <EntitySet Name="vwRecords" EntityType="PizzeriaModel.vwRecord" />
           <EntitySet Name="vwOrders" EntityType="PizzeriaModel.vwOrder" />
         </EntityContainer>
-        <EntityType Name="vwRecord">
-          <Key>
-            <PropertyRef Name="RecordID" />
-            <PropertyRef Name="MealName" />
-            <PropertyRef Name="Amount" />
-            <PropertyRef Name="OrderID" />
-          </Key>
-          <Property Name="RecordID" Type="Int32" Nullable="false" />
-          <Property Name="MealName" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="Amount" Type="Int32" Nullable="false" />
-          <Property Name="OrderID" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityType Name="vwOrder">
           <Key>
             <PropertyRef Name="RecordID" />
@@ -302,16 +267,6 @@ warning 6002: The table/view 'Pizzeria.dbo.vwRecord' does not have a primary key
               <MappingFragment StoreEntitySet="tblStatus">
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
                 <ScalarProperty Name="StatusName" ColumnName="StatusName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="vwRecords">
-            <EntityTypeMapping TypeName="PizzeriaModel.vwRecord">
-              <MappingFragment StoreEntitySet="vwRecord">
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
-                <ScalarProperty Name="MealName" ColumnName="MealName" />
-                <ScalarProperty Name="RecordID" ColumnName="RecordID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -96,6 +96,38 @@ namespace WpfPizzeria.ViewModels
             return true;
         }
 
+        private ICommand approveOrder;
+
+        public ICommand ApproveOrder
+        {
+            get
+            {
+                if (approveOrder == null)
+                {
+                    approveOrder = new RelayCommand(param => ApproveOrderExecute(), param => CanApproveOrderExecute());
+                }
+
+                return approveOrder;
+            }
+        }
+
+        private void ApproveOrderExecute()
+        {
+            try
+            {
+                service.ApproveOrder(Order);
+                OrderList = service.GetAllOrders();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private bool CanApproveOrderExecute()
+        {
+            return true;
+        }
         #endregion
     }
 }

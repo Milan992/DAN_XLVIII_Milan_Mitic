@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows;
 using WpfPizzeria.Model;
 
 namespace WpfPizzeria
@@ -89,6 +90,36 @@ namespace WpfPizzeria
             {
                 System.Diagnostics.Debug.Write("Exception" + ex.Message.ToString());
                 return null;
+            }
+        }
+
+        /// <summary>
+        /// changes order status
+        /// </summary>
+        /// <param name="order"></param>
+        public void ApproveOrder(tblOrder order)
+        {
+            try
+            {
+                using (PizzeriaEntities context = new PizzeriaEntities())
+                {
+                    tblOrder orderToEdit = (from p in context.tblOrders where p.OrderID == order.OrderID select p).First();
+                    if (order.StatusID == 2)
+                    {
+                        orderToEdit.StatusID = 3;
+                        MessageBox.Show("Order declined.");
+                    }
+                    else
+                    {
+                        orderToEdit.StatusID = 2;
+                        MessageBox.Show("Order approved.");
+                    }
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.Write("Exception" + ex.Message.ToString());
             }
         }
 
