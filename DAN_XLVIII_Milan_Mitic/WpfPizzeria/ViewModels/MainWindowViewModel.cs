@@ -83,9 +83,16 @@ namespace WpfPizzeria.ViewModels
             {
                 if (service.IsJmbg(UserName) && Password == "Gost")
                 {
-                    Guest guest = new Guest();
-                    guest.ShowDialog();
-                    File.WriteAllText(@"..\..\Username.txt", UserName);
+                    if (service.IsWaiting(UserName))
+                    {
+                        MessageBox.Show("You can not place any orders untill your previous order is approved.");
+                    }
+                    else
+                    {
+                        Guest guest = new Guest();
+                        guest.ShowDialog();
+                        File.WriteAllText(@"..\..\Username.txt", UserName);
+                    }
                 }
                 else if (UserName == "Zaposleni" && Password == "Zaposleni")
                 {

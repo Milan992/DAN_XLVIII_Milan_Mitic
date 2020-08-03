@@ -72,6 +72,28 @@ namespace WpfPizzeria
         }
 
         /// <summary>
+        /// Checks if user has any waiting orders.
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public bool IsWaiting(string userName)
+        {
+            try
+            {
+                using (PizzeriaEntities context = new PizzeriaEntities())
+                {
+                    tblOrder order =  new tblOrder();
+                    order = (from x in context.tblOrders where x.JMBG == userName && x.StatusID == 1 select x).First();
+                    return true;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Gets all orders from a DataBase and adds the to the list.
         /// </summary>
         /// <returns></returns>
