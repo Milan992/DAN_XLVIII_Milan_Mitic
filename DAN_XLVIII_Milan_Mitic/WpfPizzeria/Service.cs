@@ -124,6 +124,41 @@ namespace WpfPizzeria
         }
 
         /// <summary>
+        /// Deletes an order from database.
+        /// </summary>
+        /// <param name="order"></param>
+        internal void DeleteOrder(tblOrder order)
+        {
+            try
+            {
+                using (PizzeriaEntities context = new PizzeriaEntities())
+                {
+                    if (order.StatusID == 1)
+                    {
+                        MessageBox.Show("Orders with waiting status can not be deleted.");
+                    }
+                    else
+                    {
+                        tblOrder orderToDelete = (from o in context.tblOrders where o.OrderID == order.OrderID select o).First();
+                        context.tblOrders.Remove(orderToDelete);
+
+                        List<tblRecord> record = (from r in context.tblRecords where r.OrderID == order.OrderID select r).ToList();
+                        for (int i = 0; i < record.Count; i++)
+                        {
+                            context.tblRecords.Remove(record[i]);
+                        }
+                        context.SaveChanges();
+                        MessageBox.Show("Order deleted.");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.Write("Exception" + ex.Message.ToString());
+            }
+        }
+
+        /// <summary>
         /// Adds all the meals from the database to a list.
         /// </summary>
         /// <returns></returns>
